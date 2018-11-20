@@ -20,11 +20,16 @@ import java.util.ArrayList
 class MainActivity : AppCompatActivity() {
 
     var previousDataId = ""
+    var foodsMap = mutableMapOf<Int, Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+
+        foodsMap[1] = R.drawable.obj_carrot
+        foodsMap[2] = R.drawable.obj_wildcarrot
+        foodsMap[3] = R.drawable.cookedrabbit
 
         val writeJson = WriteJson(this)
         writeJson.jsonWrite()
@@ -37,8 +42,14 @@ class MainActivity : AppCompatActivity() {
 
         fab.setOnClickListener { view ->
             when (previousDataId) {
-                "001" -> {
+                "main" -> {
                     val newData = jsonToMap("categories", "categoryName")
+                    ivTest.visibility = View.GONE
+                    //list.adapter = NoteAdapter(testData, { partItem : NoteData -> partItemClicked(partItem) })
+                    resetAdapter(newData)
+                }
+                "foods" -> {
+                    val newData = jsonToMap("foods", "foodType")
                     ivTest.visibility = View.GONE
                     //list.adapter = NoteAdapter(testData, { partItem : NoteData -> partItemClicked(partItem) })
                     resetAdapter(newData)
@@ -73,15 +84,16 @@ class MainActivity : AppCompatActivity() {
                 val newData = jsonToMap("foods", "foodType")
                 //list.adapter = NoteAdapter(newData, { partItem : NoteData -> partItemClicked(partItem) })
                 resetAdapter(newData)
-                previousDataId = "001"
+                previousDataId = "main"
             }
             partItem.id == "food01" -> {
-                ivTest.visibility = View.VISIBLE
-                ivTest.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.obj_carrot))
+                launchDetailActivity(foodsMap[1]!!)
             }
             partItem.id == "food02" -> {
-                ivTest.visibility = View.VISIBLE
-                ivTest.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.obj_wildcarrot))
+                launchDetailActivity(foodsMap[2]!!)
+            }
+            partItem.id == "food03" -> {
+                launchDetailActivity(foodsMap[3]!!)
             }
             else -> Snackbar.make(this.currentFocus, "Clicked: " + partItem.id, Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
@@ -91,6 +103,17 @@ class MainActivity : AppCompatActivity() {
 
     private fun resetAdapter(data: List<NoteData>){
         list.adapter = NoteAdapter(data, { partItem : NoteData -> partItemClicked(partItem) })
+    }
+
+    private fun setDrawableIv(drawableId: Int){
+        ivTest.visibility = View.VISIBLE
+        ivTest.setImageDrawable(ContextCompat.getDrawable(this, drawableId))
+    }
+
+    private fun launchDetailActivity(drawableId: Int){
+        val showDetailActivityIntent = Intent(this, PartDetailActivity::class.java)
+        showDetailActivityIntent.putExtra("mDrawableId", drawableId)
+        startActivity(showDetailActivityIntent)
     }
 
     private fun jsonToMap(jsonArray: String, jsonObj: String): List<NoteData>{

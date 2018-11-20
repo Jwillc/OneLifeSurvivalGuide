@@ -32,6 +32,7 @@ public class WriteJson {
         JSONObject innerObj2 = new JSONObject();
         JSONObject innerFoodObj = new JSONObject();
         JSONObject innerFoodObj2 = new JSONObject();
+        JSONObject innerFoodObj3 = new JSONObject();
         File file = Objects.requireNonNull(ac).getBaseContext().getFileStreamPath("guideData.json");
 
         if(!file.exists()){
@@ -55,11 +56,15 @@ public class WriteJson {
                 innerFoodObj2.put("objectId", "food02");
                 innerFoodObj2.put("foodType", "Wild Carrot");
 
+                innerFoodObj3.put("objectId", "food03");
+                innerFoodObj3.put("foodType", "Cooked Rabbit");
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
             foods.put(innerFoodObj);
             foods.put(innerFoodObj2);
+            foods.put(innerFoodObj3);
 
             try {
                 obj.put("categories", categories);
