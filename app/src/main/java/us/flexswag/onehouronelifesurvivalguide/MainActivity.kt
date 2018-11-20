@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         list.hasFixedSize()
         list.adapter = NoteAdapter(testData, { partItem : NoteData -> partItemClicked(partItem) })
 
-        fab.setOnClickListener { view ->
+        fab.setOnClickListener {
             when (previousDataId) {
                 "main" -> {
                     val newData = jsonToMap("categories", "categoryName")
