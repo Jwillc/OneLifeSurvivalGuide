@@ -5,7 +5,7 @@ Android One Hour One Life survival guide app with images for crafting recipes.
 ![uiNav](https://i.imgur.com/chXhf5M.png)
 
 # Progress
-In very early stage of development. Currently working on UI and navigation.
+UI and Navigation is done. Time to add good content.
 
 # Credits
 Images by u/kantorr @ Reddit  
