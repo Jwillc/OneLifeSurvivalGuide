@@ -1,6 +1,7 @@
 package us.flexswag.onehouronelifesurvivalguide
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.content.ContextCompat
@@ -20,19 +21,33 @@ import java.util.ArrayList
 class MainActivity : AppCompatActivity() {
 
     var previousDataId = ""
-    var foodsMap = mutableMapOf<Int, Int>()
+    private var foodsMap = mutableMapOf<Int, Int>()
+    private var vidMap = mutableMapOf<Int, String>()
+    private var basicsMap = mutableMapOf<Int, Int>()
+    private var clothingMap = mutableMapOf<Int, Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
+        vidMap[1] = "https://youtu.be/MRRNexVvK1E" // Forging Video
+
+        basicsMap[1] = R.drawable.basket // Basket Guide
+
+        clothingMap[1] = R.drawable.rabbitfur
+        clothingMap[2] = R.drawable.needlethread
+        clothingMap[3] = R.drawable.rabbitfurclothing
+        clothingMap[4] = R.drawable.rabbitbackpack
+        clothingMap[5] = R.drawable.wolfhat
+        clothingMap[6] = R.drawable.bowandarrow
+
         foodsMap[1] = R.drawable.obj_carrot
         foodsMap[2] = R.drawable.obj_wildcarrot
         foodsMap[3] = R.drawable.cookedrabbit
 
-        val writeJson = WriteJson(this)
-        writeJson.jsonWrite()
+        //val writeJson = WriteJson(this)
+        //writeJson.jsonWrite()
 
         val testData = jsonToMap("categories", "categoryName")
 
@@ -80,21 +95,66 @@ class MainActivity : AppCompatActivity() {
         showDetailActivityIntent.putExtra(Intent.EXTRA_TEXT, partItem.id)
         startActivity(showDetailActivityIntent)*/
         when {
-            partItem.id == "001" -> {
-                val newData = jsonToMap("foods", "foodType")
-                //list.adapter = NoteAdapter(newData, { partItem : NoteData -> partItemClicked(partItem) })
+            // Main Categories
+            partItem.id == "vidCat" -> {
+                val newData = jsonToMap("videos", "vidTitle")
                 resetAdapter(newData)
                 previousDataId = "main"
             }
-            partItem.id == "food01" -> {
+            partItem.id == "foodCat" -> {
+                val newData = jsonToMap("foods", "foodType")
+                resetAdapter(newData)
+                previousDataId = "main"
+            }
+            partItem.id == "basicsCat" -> {
+                val newData = jsonToMap("basics", "basicsTitle")
+                resetAdapter(newData)
+                previousDataId = "main"
+            }
+            partItem.id == "clothingCat" -> {
+                val newData = jsonToMap("clothing", "clothingTitle")
+                resetAdapter(newData)
+                previousDataId = "main"
+            }
+
+            // Videos
+            partItem.id == "vidForge" -> {
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(vidMap[1]!!)))
+            }
+            // Basics Category
+            partItem.id == "basicsBasket" -> {
+                launchDetailActivity(basicsMap[1]!!)
+            }
+            // Food Category
+            partItem.id == "foodCarrot" -> {
                 launchDetailActivity(foodsMap[1]!!)
             }
-            partItem.id == "food02" -> {
+            partItem.id == "foodWildCarrot" -> {
                 launchDetailActivity(foodsMap[2]!!)
             }
-            partItem.id == "food03" -> {
+            partItem.id == "foodCookedRabbit" -> {
                 launchDetailActivity(foodsMap[3]!!)
             }
+            // Clothing Category
+            partItem.id == "clothingRabbitFur" -> {
+                launchDetailActivity(clothingMap[1]!!)
+            }
+            partItem.id == "clothingNeedleThread" -> {
+                launchDetailActivity(clothingMap[2]!!)
+            }
+            partItem.id == "clothingRabbitFurClothes" -> {
+                launchDetailActivity(clothingMap[3]!!)
+            }
+            partItem.id == "clothingRabbitBackpack" -> {
+                launchDetailActivity(clothingMap[4]!!)
+            }
+            partItem.id == "clothingWolfHat" -> {
+                launchDetailActivity(clothingMap[5]!!)
+            }
+            partItem.id == "clothingBowArrow" -> {
+                launchDetailActivity(clothingMap[6]!!)
+            }
+
             else -> Snackbar.make(this.currentFocus, "Clicked: " + partItem.id, Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
@@ -118,7 +178,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun jsonToMap(jsonArray: String, jsonObj: String): List<NoteData>{
         val noteList = ArrayList<NoteData>()
-        val jsonObject = JSONObject(readJSONFromAsset())
+        val jsonObject = JSONObject(loadJSONFromAsset())
         val array = jsonObject.getJSONArray(jsonArray)
 
         for (i in 0 until array.length()) {
@@ -127,6 +187,23 @@ class MainActivity : AppCompatActivity() {
             noteList.add(entries)
         }
         return noteList
+    }
+
+    private fun loadJSONFromAsset(): String? {
+        var json: String? = null
+        try {
+            val `is` = this.assets.open("guideData.json")
+            val size = `is`.available()
+            val buffer = ByteArray(size)
+            `is`.read(buffer)
+            `is`.close()
+            json = String(buffer, charset("UTF-8"))
+        } catch (ex: IOException) {
+            ex.printStackTrace()
+            return null
+        }
+
+        return json
     }
 
     private fun readJSONFromAsset(): String? {

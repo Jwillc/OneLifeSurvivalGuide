@@ -1,0 +1,27 @@
+{
+    "categories": [
+        { "objectId":"vidCat" , "categoryName":"Video Guides"},
+        { "objectId":"basicsCat" , "categoryName":"Basics" },
+        { "objectId":"foodCat" , "categoryName":"Food" },
+        { "objectId":"clothingCat" , "categoryName":"Clothing" }
+    ],
+    "foods": [
+        { "objectId":"foodCarrot" , "foodType":"Carrot"},
+        { "objectId":"foodWildCarrot" , "foodType":"Wild Carrot" },
+        { "objectId":"foodCookedRabbit" , "foodType":"Cooked Rabbit" }
+    ],
+    "videos": [
+        { "objectId":"vidForge" , "vidTitle":"Forge"}
+    ],
+    "basics": [
+        { "objectId":"basicsBasket" , "basicsTitle":"Basket"}
+    ],
+    "clothing": [
+        { "objectId":"clothingRabbitFur" , "clothingTitle":"Rabbit Furs"},
+        { "objectId":"clothingNeedleThread" , "clothingTitle":"Needle & Thread"},
+        { "objectId":"clothingRabbitFurClothes" , "clothingTitle":"Fur Clothing"},
+        { "objectId":"clothingRabbitBackpack" , "clothingTitle":"Fur Backpack"},
+        { "objectId":"clothingWolfHat" , "clothingTitle":"Wolf Hat"},
+        { "objectId":"clothingBowArrow" , "clothingTitle":"Bow & Arrow"}
+    ]
+ }
