@@ -4,23 +4,21 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.Snackbar
-import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.fragment_notes.*
 import org.json.JSONObject
 import java.io.IOException
-import java.util.ArrayList
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    var previousDataId = ""
+    private var previousDataId = ""
+
+    // Creating maps for each Category
     private var foodsMap = mutableMapOf<Int, Int>()
     private var vidMap = mutableMapOf<Int, String>()
     private var basicsMap = mutableMapOf<Int, Int>()
@@ -31,6 +29,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
+        // Put guides into maps with keys
         vidMap[1] = "https://youtu.be/MRRNexVvK1E" // Forging Video
 
         basicsMap[1] = R.drawable.basket // Basket Guide
@@ -46,27 +45,25 @@ class MainActivity : AppCompatActivity() {
         foodsMap[2] = R.drawable.obj_wildcarrot
         foodsMap[3] = R.drawable.cookedrabbit
 
-        //val writeJson = WriteJson(this)
-        //writeJson.jsonWrite()
-
+        // Load the adapter with main category values
         val testData = jsonToMap("categories", "categoryName")
 
+        // Set up the list view
         list.layoutManager = LinearLayoutManager(this)
         list.hasFixedSize()
         list.adapter = NoteAdapter(testData, { partItem : NoteData -> partItemClicked(partItem) })
 
+        // This is the back button.
+        // It goes back to the appropriate category
+        // based on the previousDataId value
         fab.setOnClickListener {
             when (previousDataId) {
                 "main" -> {
                     val newData = jsonToMap("categories", "categoryName")
-                    ivTest.visibility = View.GONE
-                    //list.adapter = NoteAdapter(testData, { partItem : NoteData -> partItemClicked(partItem) })
                     resetAdapter(newData)
                 }
                 "foods" -> {
                     val newData = jsonToMap("foods", "foodType")
-                    ivTest.visibility = View.GONE
-                    //list.adapter = NoteAdapter(testData, { partItem : NoteData -> partItemClicked(partItem) })
                     resetAdapter(newData)
                 }
             }
@@ -90,10 +87,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun partItemClicked(partItem : NoteData) {
-        // Launch second activity, pass part ID as string parameter
-        /*val showDetailActivityIntent = Intent(this, PartDetailActivity::class.java)
-        showDetailActivityIntent.putExtra(Intent.EXTRA_TEXT, partItem.id)
-        startActivity(showDetailActivityIntent)*/
+        // Update Adapter based on what the user clicks
+        // Receiving item id as param
         when {
             // Main Categories
             partItem.id == "vidCat" -> {
@@ -158,16 +153,10 @@ class MainActivity : AppCompatActivity() {
             else -> Snackbar.make(this.currentFocus, "Clicked: " + partItem.id, Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
-        //toast("Clicked: " + partItem.id)
     }
 
     private fun resetAdapter(data: List<NoteData>){
         list.adapter = NoteAdapter(data, { partItem : NoteData -> partItemClicked(partItem) })
-    }
-
-    private fun setDrawableIv(drawableId: Int){
-        ivTest.visibility = View.VISIBLE
-        ivTest.setImageDrawable(ContextCompat.getDrawable(this, drawableId))
     }
 
     private fun launchDetailActivity(drawableId: Int){
@@ -203,22 +192,6 @@ class MainActivity : AppCompatActivity() {
             return null
         }
 
-        return json
-    }
-
-    private fun readJSONFromAsset(): String? {
-        val json: String?
-        try {
-            val `is` = this.openFileInput("guideData.json")
-            val size = `is`.available()
-            val buffer = ByteArray(size)
-            `is`.read(buffer)
-            `is`.close()
-            json = String(buffer, charset("UTF-8"))
-        } catch (ex: IOException) {
-            ex.printStackTrace()
-            return null
-        }
         return json
     }
 }
