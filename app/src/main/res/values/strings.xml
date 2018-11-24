@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">OneHourOneLife Survival Guide</string>
+    <string name="app_name">OneLife Survival Guide</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_part_detail">PartDetailActivity</string>
 </resources>

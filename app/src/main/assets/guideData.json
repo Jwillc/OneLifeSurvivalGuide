@@ -3,7 +3,8 @@
         { "objectId":"vidCat" , "categoryName":"Video Guides"},
         { "objectId":"basicsCat" , "categoryName":"Basics" },
         { "objectId":"foodCat" , "categoryName":"Food" },
-        { "objectId":"clothingCat" , "categoryName":"Clothing" }
+        { "objectId":"clothingCat" , "categoryName":"Clothing" },
+      { "objectId":"farmingCat" , "categoryName":"Farming" }
     ],
     "foods": [
         { "objectId":"foodCarrot" , "foodType":"Carrot"},
@@ -14,7 +15,15 @@
         { "objectId":"vidForge" , "vidTitle":"Forge"}
     ],
     "basics": [
-        { "objectId":"basicsBasket" , "basicsTitle":"Basket"}
+        { "objectId":"basicsBasket" , "basicsTitle":"Basket"},
+        { "objectId":"basicsClayBowl" , "basicsTitle":"Clay Bowl"},
+        { "objectId":"basicsClayPlate" , "basicsTitle":"Clay Plate"},
+      { "objectId":"basicsFire" , "basicsTitle":"Fire"},
+      { "objectId":"basicsFireBrand" , "basicsTitle":"Firebrand"},
+      { "objectId":"basicsHotFlatRock" , "basicsTitle":"Hot Flat Rock"},
+      { "objectId":"basicsAdobeKiln" , "basicsTitle":"Adobe Kiln"},
+      { "objectId":"basicsKindlingAndTinder" , "basicsTitle":"Kindling & Tinder"},
+      { "objectId":"basicsLeaf" , "basicsTitle":"Leaf"}
     ],
     "clothing": [
         { "objectId":"clothingRabbitFur" , "clothingTitle":"Rabbit Furs"},
@@ -23,5 +32,18 @@
         { "objectId":"clothingRabbitBackpack" , "clothingTitle":"Fur Backpack"},
         { "objectId":"clothingWolfHat" , "clothingTitle":"Wolf Hat"},
         { "objectId":"clothingBowArrow" , "clothingTitle":"Bow & Arrow"}
-    ]
+    ],
+  "farming": [
+    { "objectId":"farmingBowlOfWater" , "farmingTitle":"Bowl of Water"},
+    { "objectId":"farmingCarrot" , "farmingTitle":"Carrot"},
+    { "objectId":"farmingCompost" , "farmingTitle":"Compost"},
+    { "objectId":"farmingDeepTilledRow" , "farmingTitle":"Deep Tilled Row"},
+    { "objectId":"farmingRows" , "farmingTitle":"Farming Rows"},
+    { "objectId":"farmingGooseBerryBush" , "farmingTitle":"Gooseberry Bush"},
+    { "objectId":"farmingRipeWheat" , "farmingTitle":"Ripe Wheat"},
+    { "objectId":"farmingShovelOfDung" , "farmingTitle":"Shovel of Dung"},
+    { "objectId":"farmingStoneHoe" , "farmingTitle":"Stone Hoe"},
+    { "objectId":"farmingStraw" , "farmingTitle":"Straw"},
+    { "objectId":"farmingMilkweed" , "farmingTitle":"Milkweed"}
+  ]
  }
