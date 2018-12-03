@@ -7,7 +7,7 @@ Android One Hour One Life survival guide app with images for crafting recipes.
 # Progress
 Centered Scroll View for guides. 
 
-To Do - Make all guides horizontal.
+To Do - Make all guides vertical.
 
 # Credits
 Images by u/kantorr @ Reddit  
